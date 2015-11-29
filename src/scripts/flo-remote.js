@@ -1,4 +1,4 @@
-var floRemote = function(socket, $) {
+var floRemote = function(socket, floPoke) {
   return function(deck) {
 
       function makeid()
@@ -23,6 +23,8 @@ var floRemote = function(socket, $) {
               deck.prev();
           } else if (action == 'next') {
               deck.next();
+          } else if (action == 'flopoke-finger1-start') {
+              floPoke.finger1().start();
           }
       });
 

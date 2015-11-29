@@ -8,8 +8,10 @@ var bespoke = require('bespoke'),
   hash = require('bespoke-hash'),
   progress = require('bespoke-progress');
   bullets = require('bespoke-bullets');
-  socket = require('socket.io-client')('http://skill-informatique.com:8000');
+  $ = require('jquery');
+  socket = require('socket.io-client')('http://localhost:8000');
   floRmote = require('./flo-remote.js');
+  floPoke = require('./flo-poke.js')($);
 
 // Bespoke.js
 bespoke.from('article', [
@@ -21,7 +23,7 @@ bespoke.from('article', [
   hash(),
   bullets('.bullet'),
   progress(),
-  floRmote(socket)
+  floRmote(socket, floPoke)
 ]);
 
 // Prism syntax highlighting
