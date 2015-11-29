@@ -8,7 +8,7 @@ var bespoke = require('bespoke'),
   hash = require('bespoke-hash'),
   progress = require('bespoke-progress');
   bullets = require('bespoke-bullets');
-  socket = require('socket.io-client')('http://localhost:8000');
+  socket = require('socket.io-client')('http://skill-informatique.com:8000');
   floRmote = require('./flo-remote.js');
 
 // Bespoke.js
