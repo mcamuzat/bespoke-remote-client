@@ -1,0 +1,121 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    title Hello World
+    link(rel='stylesheet', type='text/css', href='build/build.css')
+
+  body
+
+    article
+
+      section
+        h1 Socket.IO
+
+      section
+        h1 Sommaires
+        ul
+          li
+            h2 Requêtes websocket
+          li
+            h2 Bespoke-remote
+          li
+            h2 Les alternatives
+
+      section
+        h2 Requêtes websocket
+        h3 Asynchrone vs Synchrone
+
+      section
+        h2 Communication Asynchrone
+        img(src="images/asynchrone.png" style='width: 100%')
+
+      section
+        h2 Communication synchrone
+        img(src="images/synchrone.png" style='width: 100%')
+
+      section
+        h1 Ajax vs Websocket
+
+      Section
+        h1 Défis moi !!
+        img(src="images/lapin_machouille2.gif" style='width: 100%')
+
+      section
+        h2 Comment actualiser le notificateur de messages ?
+        img(src="images/exercice1.png" style="width: 100%; height: auto" class="bullet")
+
+      section
+        h2 Exemple ajax
+        pre
+          code.language-javascript.
+            setInterval(function(){
+              jQuery.getJSON( url [, data ] [, success ] )
+            }, 1000);
+
+      section
+        h2 Exemple AJAX
+        img(src="images/ex_notification_asynchrone.png" style='width:100%')
+
+      Section
+        h1 T'as pas mieux ?
+        img(src="images/lapin_machouille.gif" style='width: 100%')
+
+      section
+        h2 Exemple Socket.IO
+        pre
+          code.language-javascript.
+            socket.on('newMessage', function(message) {
+                // render
+            });
+
+      section
+        h1 Websocket is not Ajax
+
+      section
+        h2 Exemple Websocket
+        img(src="images/ex_notification_synchrone.png" style='width:100%')
+
+      section
+        h2 websocket is not Ajax
+
+      section
+        h2 Responsive Slides
+        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
+
+      section
+        h2 Syntax Highlighting
+        h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
+        pre
+          code.language-javascript.
+            bespoke.from('article', [
+              classes(),
+              keys(),
+              touch(),
+              bullets('li, .bullet')
+            ]);
+
+      section(data-bespoke-hash='named-route')
+        h2 Named Route
+        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a>
+        p Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.        
+
+      section.emphatic-text(data-bespoke-backdrop='emphatic')
+        h2 Emphatic Slide!
+        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-backdrop">bespoke-backdrop</a>
+
+      section
+        h2.bullet Just the beginning...
+        br
+        ul
+          li Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em>
+          li Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em>
+          li Edit JavaScript in <em>'src/scripts/main.js'</em>
+        br
+        ul
+          li
+            strong Enjoy! :)
+            a(href='http://twitter.com/markdalgleish')  -@markdalgleish
+
+    script(src='build/build.js')
