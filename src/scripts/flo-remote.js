@@ -1,8 +1,7 @@
-var floRemote = function(socket, floPoke) {
+var floRemote = function($, socket, floPoke) {
   return function(deck) {
 
-      function makeid()
-      {
+      function makeid() {
           var text = "";
           var possible = "abcdefghijklmnopqrstuvwxyz";
 
@@ -10,6 +9,22 @@ var floRemote = function(socket, floPoke) {
               text += possible.charAt(Math.floor(Math.random() * possible.length));
 
           return text;
+      }
+
+      function getNote() {
+          var note = $('.bespoke-active').eq(0).find('.flonote').eq(0).text();
+          if (note != '' && typeof(note) !== 'undefined') {
+              return note;
+          }
+      }
+
+      function emitNote(token) {
+          var note = getNote();
+          objNote = {
+              token: token,
+              note: note
+          };
+          socket.emit('flopoke-note', objNote);
       }
 
       var token = makeid();
@@ -26,6 +41,10 @@ var floRemote = function(socket, floPoke) {
           } else if (action == 'flopoke-finger1-start') {
               floPoke.finger1().start();
           }
+      });
+
+      deck.on('activate', function(e) {
+          emitNote(token);
       });
 
   };

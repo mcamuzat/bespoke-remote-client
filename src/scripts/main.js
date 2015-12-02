@@ -23,7 +23,7 @@ bespoke.from('article', [
   hash(),
   bullets('.bullet'),
   progress(),
-  floRmote(socket, floPoke)
+  floRmote($, socket, floPoke)
 ]);
 
 // Prism syntax highlighting
