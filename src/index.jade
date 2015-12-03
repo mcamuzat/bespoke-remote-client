@@ -4,17 +4,18 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
     title Hello World
-    link(rel='stylesheet', type='text/css', href='build/build.css?v1511302330')
+    link(rel='stylesheet', type='text/css', href='build/build.css?v1511302330D')
 
   body
 
     article
 
       section
-        div.flonote home page socket.io
+        div.flonote Socket.IO
         h1 Socket.IO
 
       section
+        div.flonote Sommaire
         h1 Sommaires
         ul
           li
@@ -25,29 +26,36 @@ html
             h2 Les alternatives
 
       section
+        div.flonote Asynchrone est la pratique actuel send -> wait -> return. Synchrone send <-> return.
         h2 Requêtes websocket
         h3 Asynchrone vs Synchrone
 
       section
+        div.flonote Présenter utilisation actuel Ex ajax. Client vers serveur only.
         h2 Communication Asynchrone
         img(src="images/asynchrone.png" style='width: 100%')
 
       section
+        div.flonote Client vers serveur et inversement.
         h2 Communication synchrone
         img(src="images/synchrone.png" style='width: 100%')
 
       section
+        div.flonote Ca sent le défis !
         h1 Ajax vs Websocket
 
       Section
+        div.flonote Se munir des lunettes 3D chocapic.
         h1 Défis moi !!
         img(src="images/lapin_machouille2.gif" style='width: 100%')
 
       section
+        div.flonote Le premier qui répond à perdu !
         h2 Comment actualiser le notificateur de messages ?
         img(src="images/exercice1.png" style="width: 100%; height: auto" class="bullet")
 
       section
+        div.flonote Old school
         h2 Exemple ajax
         pre
           code.language-javascript.
@@ -56,14 +64,17 @@ html
             }, 1000);
 
       section
+        div.flonote Inconvénient: Setinterval qui mouline. Ce n'est pas en temps rééelle. Ca consomme des requêtes unitillement.
         h2 Exemple AJAX
         img(src="images/ex_notification_asynchrone.png" style='width:100%')
 
       Section
+        div.flonote On va montrer un exemple en socket.io
         h1 T'as pas mieux ?
         img(src="images/lapin_machouille.gif" style='width: 100%')
 
       section
+        div.flonote Compatible à partir d'IE 5.5. Temps réelle, consomme peu.
         h2 Exemple Socket.IO
         pre
           code.language-javascript.
@@ -72,72 +83,109 @@ html
             });
 
       section
+        div.flonote New School
         h1 Websocket is not Ajax
 
       section
+        div.flonote Un va et viens se fait pour synchro le socket au serveur. Ensuite tout serveur comme client sont en attente d'évènement.
         h2 Exemple Websocket
         img(src="images/ex_notification_synchrone.png" style='width:100%')
 
       section
+        div.flonote Exemple concret avec bespoke.
         h2 Bespoke remote
         h3 Architecture
         h3 Code client
         h3 Code serveur
 
       section
+        div.flonote Controle diapo à partir d'une app. (prev, next, what)
         h2 Infra
         img(src="images/schema1.png" style="width:100%")
 
       section
+        div.flonote On stocke les users connecté.
+        h3 Coté Application
+        pre
+          code.language-javascript.
+            var socket = require('socket.io-client');
+            socket('http://192.168.1.42:8000');
+            socket.emit('bespoke-action', 'next');
+
+      section
+        div.flonote Idéalement on créer un model user avec un attribut socket.
+        h3 Coté serveur
+        pre
+          code.language-javascript.
+            var io = require('socket.io')(server);
+            io.sockets.on('connect', function (socket) {
+              // on stock les users qui se connect
+              var users[socket.id] = socket;
+
+              socket.on('bespoke-action', function (action) {
+                // On envoie la requete à la diapo.
+                users[id_que_je_veux].emit('client-bespoke-action', action);
+              });
+
+            };
+
+      section
+        div.flonote Coté diapo
+        h3 coté diapo
+        pre
+          code.language-javascript.
+            var socket = require('socket.io-client');
+            socket('http://192.168.1.42:8000');
+
+            socket.on('client-bespoke-action', function(action) {
+                if (action == 'next') {
+                  deck.next();
+                }
+            });
+
+      section
+        div.flonote Envoyer la note de la slide actuel aux apps. (smartphone)
         img(src="images/schema2.png" style="width:100%")
 
       section
+        h3 Diapo showNote
+        pre
+          code.language-javascript.
+            Diapo: socket.emit(showNote, manote)
+            Server: socket.on(showNote, function(manote){
+              users[id_user].emit(showNote)
+            };
+            App: socket.on(showNote, function(manote){ // render });
+
+      section
+        div.flonote Controller plusieurs diapos en même temps.
         h2 broadcast
         img(src="images/schema3.png" style="width:100%")
 
       section
+        h3 exemple broadcast
+        pre
+          code.language-javascript.
+            socket.broadcast.emit(notification, "message")
+
+      section
+        div.flonote Phone à phone, diapo à phone bref dans tous les sens possible.
         h2 broadcast
         img(src="images/schema4.png" style="width:100%")
 
       section
-        h2 Responsive Slides
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
+        div.flonote A partir de php on peut faire des socket.emit. Démontrer un exemple avec magazine decideur.
+        h3 Elephant.io
+        img(src="images/elephantio.png" style="width:100%")
 
       section
-        h2 Syntax Highlighting
-        h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
-        pre
-          code.language-javascript.
-            bespoke.from('article', [
-              classes(),
-              keys(),
-              touch(),
-              bullets('li, .bullet')
-            ]);
-
-      section(data-bespoke-hash='named-route')
-        h2 Named Route
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a>
-        p Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.        
-
-      section.emphatic-text(data-bespoke-backdrop='emphatic')
-        h2 Emphatic Slide!
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-backdrop">bespoke-backdrop</a>
+        div.flonote Le process se lance en ligne de commande, et reste actif comme node.js. Plus complexe à mettre en place.
+        h2 Alternative en php avec Rachet
 
       section
-        h2.bullet Just the beginning...
-        br
-        ul
-          li Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em>
-          li Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em>
-          li Edit JavaScript in <em>'src/scripts/main.js'</em>
-        br
-        ul
-          li
-            strong Enjoy! :)
-            a(href='http://twitter.com/markdalgleish')  -@markdalgleish
+        h1 Et voilà
 
     div.poke
 
 
-    script(src='build/build.js?v1511302330')
+    script(src='build/build.js?v1511302330D')
